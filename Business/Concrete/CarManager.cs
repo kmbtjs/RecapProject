@@ -22,14 +22,14 @@ namespace Business.Concrete
         public void Add(Car car)
         {
             if (car.DailyPrice > 0)
-                {
-                    _carDal.Add(car);
+            {
+                _carDal.Add(car);
                     Console.WriteLine("{0} added.", car.Description);
-                }
+            }
                 else
                 {
                     Console.WriteLine("Daily price should be bigger than 0");
-                }
+        }
         }
         public void Delete(Car car)
         {
