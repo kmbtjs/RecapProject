@@ -16,6 +16,7 @@ namespace ConsoleUI
             CustomerManager customerManager1 = new CustomerManager(new EfCustomerDal());
             UserManager userManager1 = new UserManager(new EfUserDal());
             DateTime date1 = new DateTime(2021, 04, 01);
+            RentalManager rentalManager1 = new RentalManager(new EfRentalDal());
 
 
 
@@ -25,7 +26,7 @@ namespace ConsoleUI
             //BrandAddTest(brandManager1);
             //BrandUpdateTest(brandManager1);
             //BrandDeleteTest(brandManager1);
-            //ColorAddTest(colorManager1);
+            ColorAddTest(colorManager1);
             //ColorUpdateTest(colorManager1);
             //ColorDeleteTest(colorManager1);
             //AddCarTest(carManager1);
