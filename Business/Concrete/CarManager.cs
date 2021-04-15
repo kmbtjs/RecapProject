@@ -26,7 +26,7 @@ namespace Business.Concrete
             if (car.DailyPrice > 0)
             {
                 _carDal.Add(car);
-                return new SuccessResult(Messages.CarAdded);
+                return new SuccessResult(Messages.AddSuccess);
             }
                 else
                 {
@@ -36,14 +36,14 @@ namespace Business.Concrete
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
-            return new SuccessResult(Messages.CarDeleted);
+            return new SuccessResult(Messages.DeleteSuccess);
         }
         public IResult Update(Car car)
         {
             if (car.DailyPrice > 0)
             {
                 _carDal.Update(car);
-                return new SuccessResult(Messages.CarUpdated);
+                return new SuccessResult(Messages.UpdateSuccess);
             }
             else
             {
@@ -53,25 +53,25 @@ namespace Business.Concrete
 
         public IDataResult<List<Car>> GetAll()
         {
-            return (IDataResult<List<Car>>)_carDal.GetAll();
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(),Messages.ListSuccess);
         }
         public IDataResult<Car> GetById(int Id)
         {
-            return (IDataResult<Car>)_carDal.Get(c => c.Id == Id);
+            return new SuccessDataResult<Car>(_carDal.Get(c => c.Id == Id),Messages.ListSuccess);
         }
         public IDataResult<List<Car>> GetCarsByBrandId(int brandId)
         {
-            return (IDataResult<List<Car>>)_carDal.GetAll(b => b.BrandId == brandId);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(b => b.BrandId == brandId), Messages.ListSuccess);
         }
 
         public IDataResult<List<Car>> GetCarsByColorId(int colorId)
         {
-            return (IDataResult<List<Car>>)_carDal.GetAll(c => c.ColorId == colorId);
+            return new SuccessDataResult<List<Car>>(_carDal.GetAll(c => c.ColorId == colorId),Messages.ListSuccess);
         }
 
         public IDataResult<List<CarDetailDto>> GetCarDetails()
         {
-            return (IDataResult<List<CarDetailDto>>)_carDal.GetCarDetails();
+            return new SuccessDataResult<List<CarDetailDto>>(_carDal.GetCarDetails(),Messages.ListSuccess);
         }
     }
 }
