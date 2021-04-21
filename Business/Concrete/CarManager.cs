@@ -1,5 +1,8 @@
 ﻿using Business.Abstract;
 using Business.Constants;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.CrossCuttingConcerns.Validation;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
 using Entities.Concrete;
@@ -20,35 +23,27 @@ namespace Business.Concrete
         {
             _carDal = carDal;
         }
-
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Add(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Add(car);
-                return new SuccessResult(Messages.AddSuccess);
-            }
-                else
-                {
-                return new ErrorResult(Messages.InvalidDailyPrice);
-                }
+            ValidationTool.Validate(new CarValidator(),car);
+            _carDal.Add(car);
+            return new SuccessResult(Messages.AddSuccess);
+            
+                
         }
         public IResult Delete(Car car)
         {
             _carDal.Delete(car);
             return new SuccessResult(Messages.DeleteSuccess);
         }
+        [ValidationAspect(typeof(CarValidator))]
         public IResult Update(Car car)
         {
-            if (car.DailyPrice > 0)
-            {
-                _carDal.Update(car);
-                return new SuccessResult(Messages.UpdateSuccess);
-            }
-            else
-            {
-                return new ErrorResult(Messages.InvalidDailyPrice);
-            }
+            ValidationTool.Validate(new CarValidator(), car);
+            _carDal.Update(car);
+            return new SuccessResult(Messages.UpdateSuccess);
+
         }
 
         public IDataResult<List<Car>> GetAll()
